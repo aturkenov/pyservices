@@ -59,14 +59,14 @@ class _ServiceEndpoint:
     service_class: Type
     method: Callable
     _async_method: bool
-    _json_output: bool
+    _return_json: bool
 
     def __init__(
         self,
         service_class: Type,
         method: Callable,
         validate_payload: bool = True,
-        json_output: bool = True,
+        return_json: bool = True,
     ):
         self.service_class = service_class
         self._async_method = is_async(method)
@@ -74,7 +74,7 @@ class _ServiceEndpoint:
             self.method = validate_arguments(method)
         else:
             self.method = method
-        self._json_output = json_output
+        self._return_json = return_json
 
     async def call(
         self,
@@ -100,7 +100,7 @@ class _ServiceEndpoint:
             await endpoint_signals.fire('catch', e)
             raise e
         await endpoint_signals.fire('end')
-        if self._json_output:
+        if self._return_json:
             return json.dumps(output)
         return output
 
