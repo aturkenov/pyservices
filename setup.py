@@ -7,7 +7,7 @@ with open('./README.md', 'r', encoding='utf-8') as file:
 
 setup(
     name='pyservices',
-    version='0.0.1',
+    version='0.0.1.1',
     author='Aidar Turkenov',
     author_email='a.k.turken0v@gmail.com',
     description='',
